@@ -1,0 +1,21 @@
+loadstring(game:httpget('https://raw.githubusercontent.com/-- Define the target player's name
+local targetPlayerName = "TARGET_PLAYER_NAME"
+
+-- Function to check if a player is the target
+local function isTarget(player)
+    return player.Name == targetPlayerName
+end
+
+-- Connect to the character added event
+game.Players.PlayerAdded:Connect(function(player)
+    -- Connect to the character added event for each player
+    player.CharacterAdded:Connect(function(character)
+        -- Connect to the hit event for each character
+        character:WaitForChild("Humanoid").Died:Connect(function()
+            -- If the player who died is the target, print a message
+            if isTarget(player) then
+                print("You killed the target!")
+            end
+        end)
+    end)
+end)
